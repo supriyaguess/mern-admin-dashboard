@@ -1,22 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   LightModeOutlined,
   DarkModeOutlined,
   Menu as MenuIcon,
   Search,
   SettingsOutlined,
+  ArrowDropDownOutlined,
 } from "@mui/icons-material";
-import { AppBar, IconButton, InputBase, Toolbar, useTheme } from "@mui/material";
-import FlexBetween from "components/FlexBetween";
+import {
+  AppBar,
+  Button,
+  Typography,
+  Box,
+  Menu,
+  IconButton,
+  InputBase,
+  MenuItem,
+  Toolbar,
+  useTheme,
+} from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setMode } from "state";
+import FlexBetween from "components/FlexBetween";
+import profileImage from "assets/profile.jpeg";
 
-const Navbar = ({
-  isSidebarOpen,
-  setIsSidebarOpen
-}) => {
+const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const isOpen = Boolean(anchorEl);
 
   return (
     <AppBar
@@ -27,7 +40,7 @@ const Navbar = ({
       }}
     >
       <Toolbar sx={{ justifyContent: "space-between" }}>
-        {/* LEFT SIDE */}
+        {/* LEFT */}
         <FlexBetween>
           <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
             <MenuIcon />
@@ -46,19 +59,58 @@ const Navbar = ({
           </FlexBetween>
         </FlexBetween>
 
-        {/* RIGHT SIDE */}
+        {/* RIGHT */}
         <FlexBetween gap="1.5rem">
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
-              <DarkModeOutlined sx={{ fontSize: "25px" }} />
+              <DarkModeOutlined />
             ) : (
-              <LightModeOutlined sx={{ fontSize: "25px" }} />
+              <LightModeOutlined />
             )}
           </IconButton>
 
           <IconButton>
-            <SettingsOutlined sx={{ fontSize: "25px" }} />
+            <SettingsOutlined />
           </IconButton>
+
+          <FlexBetween>
+            <Button
+              onClick={(e) => setAnchorEl(e.currentTarget)}
+              sx={{
+                textTransform: "none",
+                display: "flex",
+                gap: "1rem",
+              }}
+            >
+              <Box
+                component="img"
+                src={profileImage}
+                alt="profile"
+                height="32px"
+                width="32px"
+                borderRadius="50%"
+              />
+
+              <Box textAlign="left">
+                <Typography fontWeight="bold" fontSize="0.85rem">
+                  {user?.name || "Admin User"}
+                </Typography>
+                <Typography fontSize="0.75rem">
+                  {user?.occupation || "Administrator"}
+                </Typography>
+              </Box>
+
+              <ArrowDropDownOutlined />
+            </Button>
+
+            <Menu
+              anchorEl={anchorEl}
+              open={isOpen}
+              onClose={() => setAnchorEl(null)}
+            >
+              <MenuItem>Log Out</MenuItem>
+            </Menu>
+          </FlexBetween>
         </FlexBetween>
       </Toolbar>
     </AppBar>

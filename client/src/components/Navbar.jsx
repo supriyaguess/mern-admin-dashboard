@@ -9,7 +9,7 @@ import {
 import { AppBar, IconButton, InputBase, Toolbar, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import { useDispatch } from "react-redux";
-import { setMode } from "assets/state";
+import { setMode } from "state";
 
 const Navbar = ({
   isSidebarOpen,

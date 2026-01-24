@@ -37,6 +37,8 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
         position: "static",
         background: "none",
         boxShadow: "none",
+        height: "64px",
+        justifyContent: "center",
       }}
     >
       <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -49,8 +51,9 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
           <FlexBetween
             background={theme.palette.background.alt}
             borderRadius="9px"
-            gap="3rem"
-            p="0.1rem 1.5rem"
+            gap="1rem"
+            px="1.5rem"
+            py="0.2rem"
           >
             <InputBase placeholder="Search..." />
             <IconButton>

@@ -50,7 +50,6 @@ const navItems = [
 ];
 
 const Sidebar = ({
-  user,
   drawerWidth,
   isSidebarOpen,
   setIsSidebarOpen,
@@ -75,34 +74,44 @@ const Sidebar = ({
         "& .MuiDrawer-paper": {
           width: drawerWidth,
           backgroundColor: theme.palette.background.alt,
+          display: "flex",
+          flexDirection: "column",
         },
       }}
     >
-      <Box>
-        <FlexBetween m="1.5rem">
-          <Typography variant="h4" fontWeight="bold">
-            ECOMVISION
-          </Typography>
+      {/* TOP LOGO */}
+      <FlexBetween m="1.5rem">
+        <Typography variant="h4" fontWeight="bold">
+          ECOMVISION
+        </Typography>
 
-          {!isNonMobile && (
-            <IconButton onClick={() => setIsSidebarOpen(false)}>
-              <ChevronLeft />
-            </IconButton>
-          )}
-        </FlexBetween>
+        {!isNonMobile && (
+          <IconButton onClick={() => setIsSidebarOpen(false)}>
+            <ChevronLeft />
+          </IconButton>
+        )}
+      </FlexBetween>
 
+      {/* MENU (SCROLLABLE) */}
+      <Box flexGrow={1} overflow="auto">
         <List>
           {navItems.map(({ text, icon }) =>
             !icon ? (
-              <Typography key={text} sx={{ m: "2rem 0 1rem 2rem" }}>
+              <Typography
+                key={text}
+                sx={{ m: "2rem 0 1rem 2rem", opacity: 0.6 }}
+              >
                 {text}
               </Typography>
             ) : (
               <ListItem key={text} disablePadding>
                 <ListItemButton
                   onClick={() => navigate(`/${text.toLowerCase()}`)}
+                  sx={{ padding: "10px 20px" }}
                 >
-                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemIcon sx={{ minWidth: "40px" }}>
+                    {icon}
+                  </ListItemIcon>
                   <ListItemText primary={text} />
                   {active === text.toLowerCase() && (
                     <ChevronRightOutlined />
@@ -112,31 +121,25 @@ const Sidebar = ({
             )
           )}
         </List>
+      </Box>
 
-        {/* FOOTER */}
-        <Box position="absolute" bottom="2rem" width="100%">
-          <Divider />
-          <FlexBetween m="1.5rem">
-            <Box
-              component="img"
-              src={profileImage}
-              height="40px"
-              width="40px"
-              borderRadius="50%"
-            />
+      {/* FOOTER (FIXED BOTTOM) */}
+      <Divider />
+      <Box p="1.5rem" display="flex" alignItems="center" gap="12px">
+        <Box
+          component="img"
+          src={profileImage}
+          height="40px"
+          width="40px"
+          borderRadius="50%"
+        />
 
-            <Box>
-              <Typography fontWeight="bold">
-                {user?.name || "Supriya"}
-              </Typography>
-              <Typography fontSize="0.8rem">
-                {user?.occupation || "Administrator"}
-              </Typography>
-            </Box>
-
-            <SettingsOutlined />
-          </FlexBetween>
+        <Box>
+          <Typography fontWeight="bold">Supriya</Typography>
+          <Typography fontSize="0.8rem">Pharmacist</Typography>
         </Box>
+
+        <SettingsOutlined sx={{ marginLeft: "auto" }} />
       </Box>
     </Drawer>
   );

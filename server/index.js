@@ -14,7 +14,8 @@ import salesRoutes from "./routes/sales.js";
 import User from "./models/User.js";
 import Product from "./models/Product.js";
 import ProductStat from "./models/ProductStat.js";
-import { dataUser , dataProduct, dataProductStat } from "./data/index.js"
+import Transaction from "./models/Transaction.js";
+import { dataUser , dataProduct, dataProductStat, dataTransaction } from "./data/index.js"
 
 /* CONFIG */
 dotenv.config();
@@ -64,6 +65,7 @@ mongoose.connect(process.env.MONGO_URL)
      /* ONLY ADD DATA ONE TIME */
     //User.insertMany(dataUser);
     //Product.insertMany(dataProduct);
+    //Transaction.insertMany(dataTransaction);
     //ProductStat.insertMany(dataProductStat);
     })
   .catch((error) =>

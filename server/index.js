@@ -70,7 +70,11 @@ mongoose.connect(process.env.MONGO_URL)
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
      
      /* ONLY ADD DATA ONE TIME */
-     //OverallStat.insertMany(dataOverallStat);
+     // Clear existing data and insert new data
+     OverallStat.deleteMany({}).then(() => {
+       OverallStat.insertMany(dataOverallStat);
+       console.log('OverallStat data seeded successfully');
+     });
     //User.insertMany(dataUser);
     //Product.insertMany(dataProduct);
     //Transaction.insertMany(dataTransaction);

@@ -14,40 +14,44 @@
     const { data } = useGetSalesQuery();
     const theme = useTheme();
 
-    const [formattedData] = useMemo(() => {
-        if (!data || !data.dailyData) return [[]];
+  const [formattedData] = useMemo(() => {
+    if (!data || !data.dailyData || data.dailyData.length === 0) {
+      console.log('No daily data available:', data);
+      return [[]];
+    }
 
-        const { dailyData } = data;
-        const totalSalesLine = {
-        id: "totalSales",
-        color: theme.palette.secondary.main,
-        data: [],
-        };
-        const totalUnitsLine = {
-        id: "totalUnits",
-        color: theme.palette.secondary[600],
-        data: [],
-        };
+    const { dailyData } = data;
+    const totalSalesLine = {
+      id: "totalSales",
+      color: theme.palette.secondary.main,
+      data: [],
+    };
+    const totalUnitsLine = {
+      id: "totalUnits",
+      color: theme.palette.secondary[600],
+      data: [],
+    };
 
-        Object.values(dailyData).forEach(({ date, totalSales, totalUnits }) => {
-        const dateFormatted = new Date(date);
-        if (dateFormatted >= startDate && dateFormatted <= endDate) {
-            const splitDate = date.substring(date.indexOf("-") + 1);
+    dailyData.forEach(({ date, totalSales, totalUnits }) => {
+      const dateFormatted = new Date(date);
+      if (dateFormatted >= startDate && dateFormatted <= endDate) {
+        const splitDate = date.substring(date.indexOf("-") + 1);
 
-            totalSalesLine.data = [
-            ...totalSalesLine.data,
-            { x: splitDate, y: totalSales },
-            ];
-            totalUnitsLine.data = [
-            ...totalUnitsLine.data,
-            { x: splitDate, y: totalUnits },
-            ];
-        }
-        });
+        totalSalesLine.data = [
+          ...totalSalesLine.data,
+          { x: splitDate, y: totalSales },
+        ];
+        totalUnitsLine.data = [
+          ...totalUnitsLine.data,
+          { x: splitDate, y: totalUnits },
+        ];
+      }
+    });
 
-        const formattedData = [totalSalesLine, totalUnitsLine];
-        return [formattedData];
-    }, [data, startDate, endDate]); // eslint-disable-line react-hooks/exhaustive-deps
+    const formattedData = [totalSalesLine, totalUnitsLine];
+    console.log('Formatted daily data:', formattedData);
+    return [formattedData];
+  }, [data, startDate, endDate, theme.palette.secondary]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Box m="1.5rem 2.5rem">

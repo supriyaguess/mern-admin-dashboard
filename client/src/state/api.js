@@ -27,12 +27,12 @@ export const api = createApi({
         }),
         getGeography: build.query({
             query: () => "client/geography",
-            providesTags: ["Geoogrphy"]
+            providesTags: ["Geogrphy"]
         }),
         getSales: build.query({
             query: () => "sales/sales",
             providesTags: ["Sales"]
-        })
+        }),
     }),
 });
  

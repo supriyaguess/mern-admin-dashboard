@@ -16,12 +16,15 @@ import Product from "./models/Product.js";
 import ProductStat from "./models/ProductStat.js";
 import Transaction from "./models/Transaction.js";
 import OverallStat from "./models/OverallStat.js";
+import AffiliateStat from "./models/AffiliateStat.js";
+
 import { 
   dataUser , 
   dataProduct, 
   dataProductStat, 
   dataTransaction ,
   dataOverallStat,
+  dataAffiliateStat,
 } from "./data/index.js"
 
 /* CONFIG */
@@ -71,10 +74,11 @@ mongoose.connect(process.env.MONGO_URL)
      
      /* ONLY ADD DATA ONE TIME */
      // Clear existing data and insert new data
-     OverallStat.deleteMany({}).then(() => {
-       OverallStat.insertMany(dataOverallStat);
-       console.log('OverallStat data seeded successfully');
-     });
+     //OverallStat.deleteMany({}).then(() => {
+       //OverallStat.insertMany(dataOverallStat);
+       //console.log('OverallStat data seeded successfully');
+     //});
+    // AffiliateStat.insertMany(dataAffiliateStat);
     //User.insertMany(dataUser);
     //Product.insertMany(dataProduct);
     //Transaction.insertMany(dataTransaction);

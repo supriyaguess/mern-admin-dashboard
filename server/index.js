@@ -56,11 +56,6 @@ app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
 
-/* SERVE REACT APP FOR ALL OTHER ROUTES (CATCH-ALL) */
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
-
 /* GLOBAL ERROR HANDLER */
 app.use((err, req, res, next) => {
   console.error("Error:", err.stack);

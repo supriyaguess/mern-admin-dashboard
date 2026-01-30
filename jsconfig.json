@@ -2,5 +2,5 @@
     "compilerOptions": {
         "baseUrl": "src"
     },
-    "include": ["src", "client/src/components/DataGridCustomColumnMenu.jsx", "client/src/components/BreakdownChart.jsx", "client/src/scenes/admin"]
+    "include": ["src", "../src/components/StatBox.jsx", "src/components/DataGridCustomColumnMenu.jsx", "src/scenes/admin", "../src/components/BreakdownChart.jsx"]
 }

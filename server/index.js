@@ -57,7 +57,7 @@ app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
 
 /* SERVE REACT APP FOR ALL OTHER ROUTES (CATCH-ALL) */
-app.get('/*', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
